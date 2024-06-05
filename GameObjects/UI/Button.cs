@@ -6,7 +6,7 @@ using TowerDefence.Managers;
 namespace TowerDefence.GameObjects.UI
 {
 
-    internal class Button : GameObject
+    internal class Button : UIObject
     {
         public delegate void ButtonAction();
 

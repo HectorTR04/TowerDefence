@@ -6,21 +6,23 @@ using TowerDefence.Managers;
 
 namespace TowerDefence.Scenes
 {
-    internal class Gameplay : Scene
+    internal class GameScene : Scene
     {
         TutorialManager tutorialManager;
-        UIManager uiManager;    
+        UIManager uiManager;
+        TowerManager towerManager;
         RenderTarget2D renderTarget;
         GraphicsDevice graphicsDevice;
         Path path;
         
-        public Gameplay(GraphicsDevice graphicsDevice)
+        public GameScene(GraphicsDevice graphicsDevice)
         {
             path = new Path(graphicsDevice);
             this.graphicsDevice = graphicsDevice;
             renderTarget = new RenderTarget2D(graphicsDevice, GlobalValues.ScreenWidth, GlobalValues.ScreenHeight);
             tutorialManager = new TutorialManager();
             uiManager = new UIManager();
+            towerManager = new TowerManager(this);
         }
         public override void Update(GameTime gameTime)
         {
@@ -31,6 +33,7 @@ namespace TowerDefence.Scenes
                 //    tutorialManager.Update(gameTime);
                 //}
                 uiManager.Update(gameTime);
+                towerManager.Update(gameTime);
             }
             else
             {
@@ -39,7 +42,6 @@ namespace TowerDefence.Scenes
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
-            DrawRenderTargetLayer(spriteBatch);
             spriteBatch.Begin();
             spriteBatch.Draw(AssetManager.GameMap, Vector2.Zero, Color.White);
             //if (!tutorialManager.TutorialDone)
@@ -47,6 +49,7 @@ namespace TowerDefence.Scenes
             //    tutorialManager.Draw(spriteBatch);
             //}
             uiManager.Draw(spriteBatch);
+            DrawRenderTargetLayer(spriteBatch);
             spriteBatch.Draw(renderTarget, Vector2.Zero, Color.White);
             spriteBatch.End();
         }
@@ -55,6 +58,7 @@ namespace TowerDefence.Scenes
             graphicsDevice.SetRenderTarget(renderTarget);
             graphicsDevice.Clear(Color.Transparent);
             path.Draw(spriteBatch);
+            towerManager.Draw(spriteBatch);
             graphicsDevice.SetRenderTarget(null);
         }
         public bool CanPlace(Tower tower)

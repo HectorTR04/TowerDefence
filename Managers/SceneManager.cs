@@ -6,13 +6,13 @@ namespace TowerDefence.Managers
 {
     internal class SceneManager
     {
-        MainMenu mainMenu;
-        Gameplay gamePlay;
+        MenuScene mainMenu;
+        GameScene gamePlay;
 
         public SceneManager(GraphicsDevice graphicsDevice)
         {
-            mainMenu = new MainMenu();
-            gamePlay = new Gameplay(graphicsDevice);
+            mainMenu = new MenuScene();
+            gamePlay = new GameScene(graphicsDevice);
         }
         public void Update(GameTime gameTime)
         {

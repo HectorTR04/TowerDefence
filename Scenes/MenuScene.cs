@@ -6,14 +6,14 @@ using TowerDefence.Managers;
 
 namespace TowerDefence.Scenes
 {
-    internal class MainMenu : Scene
+    internal class MenuScene : Scene
     {
         Button startButton;
         Rectangle startButtonRectangle;
         Button quitButton;
         Rectangle quitButtonRectangle;
             
-        public MainMenu()
+        public MenuScene()
         {
             startButtonRectangle = new Rectangle(486, 555, AssetManager.StartButton.Width, AssetManager.StartButton.Height);
             startButton = new Button(startButtonRectangle, StartGame);

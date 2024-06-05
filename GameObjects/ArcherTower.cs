@@ -10,7 +10,7 @@ namespace TowerDefence.GameObjects
 {
     internal class ArcherTower : Tower
     {
-        public ArcherTower(Rectangle rect) : base(rect)
+        public ArcherTower()
         {
             tex = AssetManager.ArcherTower;
         }

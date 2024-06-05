@@ -1,12 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using TowerDefence.Base;
 using TowerDefence.Managers;
 
 namespace TowerDefence.GameObjects.UI
 {
-    internal class Message : GameObject
+    internal class Message : UIObject
     {
         public bool DisplayMessage;
         string text;

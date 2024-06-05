@@ -9,8 +9,13 @@ namespace TowerDefence.GameObjects
     {
         int price;
 
-        public Tower(Rectangle rect) : base(rect)
+        public Tower()
         {
+        }
+
+        public void SetRectangle(Rectangle rect)
+        {
+            Hitbox = rect;  
         }
 
         public void Update(GameTime gameTime)
