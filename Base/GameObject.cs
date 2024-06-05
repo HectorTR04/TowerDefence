@@ -11,6 +11,10 @@ namespace TowerDefence.Base
         {
             get { return hitbox; }
         }
+        public Texture2D Tex
+        {
+            get { return tex; }
+        }
         public GameObject(Rectangle rect)
         {
             hitbox = rect;

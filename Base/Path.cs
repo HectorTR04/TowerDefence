@@ -6,7 +6,7 @@ using TowerDefence.PathEngine;
 
 namespace TowerDefence.Base
 {
-    internal class Wave
+    internal class Path
     {
         /// Catmull-Rom path
         CatmullRomPath cpath_road;
@@ -21,7 +21,7 @@ namespace TowerDefence.Base
 
         GraphicsDevice graphicsDevice;
 
-        public Wave(GraphicsDevice graphicsDevice)
+        public Path(GraphicsDevice graphicsDevice)
         {
             LevelNr += 1;
             this.graphicsDevice = graphicsDevice;
@@ -42,7 +42,7 @@ namespace TowerDefence.Base
 
             // DrawFillSetup must be called (once) for every path that uses DrawFill
             // Call again if curve is altered or if window is resized
-            cpath_road.DrawFillSetup(graphicsDevice, 4, 4, 26);
+            cpath_road.DrawFillSetup(graphicsDevice, 15, 1, 26);
             //cpath_moving.DrawFillSetup(gd, 2, 1, 256);
         }
 
