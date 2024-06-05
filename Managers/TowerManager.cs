@@ -9,7 +9,6 @@ namespace TowerDefence.Managers
     internal class TowerManager
     {
         List<Tower> towerList;
-        bool CanPlaceTower = true;
         bool IsPlacingTower = true;
         GameScene gameScene;
         public TowerManager(GameScene gameScene)
@@ -23,16 +22,18 @@ namespace TowerDefence.Managers
             ArcherTower tower = new ArcherTower();
             Rectangle towerRect = new Rectangle((int)position.X, (int)position.Y, tower.Tex.Width, tower.Tex.Height);
             tower.SetRectangle(towerRect);
-            if (IsPlacingTower && gameScene.CanPlace(tower))
+
+            gameScene.DrawRenderTargetLayer(new SpriteBatch(gameScene.graphicsDevice));
+
+            if (gameScene.CanPlace(tower))
             {
                 towerList.Add(tower);
-                IsPlacingTower = false;
             }
         }
 
         public void Update(GameTime gameTime)
         {
-            if(CanPlaceTower)
+            if(IsPlacingTower)
             {
                 Vector2 placementPosition = new Vector2(KeyMouseManager.mouseState.X, KeyMouseManager.mouseState.Y);
                 if(KeyMouseManager.RightClick())

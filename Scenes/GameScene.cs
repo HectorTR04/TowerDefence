@@ -12,8 +12,9 @@ namespace TowerDefence.Scenes
         UIManager uiManager;
         TowerManager towerManager;
         RenderTarget2D renderTarget;
-        GraphicsDevice graphicsDevice;
+        public GraphicsDevice graphicsDevice;
         Path path;
+        Rectangle[] borders;
         
         public GameScene(GraphicsDevice graphicsDevice)
         {
@@ -42,6 +43,7 @@ namespace TowerDefence.Scenes
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
+            DrawRenderTargetLayer(spriteBatch);
             spriteBatch.Begin();
             spriteBatch.Draw(AssetManager.GameMap, Vector2.Zero, Color.White);
             //if (!tutorialManager.TutorialDone)
@@ -49,16 +51,17 @@ namespace TowerDefence.Scenes
             //    tutorialManager.Draw(spriteBatch);
             //}
             uiManager.Draw(spriteBatch);
-            DrawRenderTargetLayer(spriteBatch);
             spriteBatch.Draw(renderTarget, Vector2.Zero, Color.White);
             spriteBatch.End();
         }
-        void DrawRenderTargetLayer(SpriteBatch spriteBatch)
+        public void DrawRenderTargetLayer(SpriteBatch spriteBatch)
         {
             graphicsDevice.SetRenderTarget(renderTarget);
             graphicsDevice.Clear(Color.Transparent);
-            path.Draw(spriteBatch);
+            spriteBatch.Begin();
             towerManager.Draw(spriteBatch);
+            path.Draw(spriteBatch);
+            spriteBatch.End();
             graphicsDevice.SetRenderTarget(null);
         }
         public bool CanPlace(Tower tower)
