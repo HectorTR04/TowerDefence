@@ -8,6 +8,7 @@ namespace TowerDefence.GameObjects
     internal abstract class Tower : GameObject
     {
         int price;
+        int damage;
 
         public Tower()
         {

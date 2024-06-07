@@ -14,11 +14,9 @@ namespace TowerDefence.PathEngine
         // E.g. "3" -> 3
         public static int parse_int(string str)
         {
-            System.Diagnostics.Debug.WriteLine("parse_int " + str);
             int x;
             if (!int.TryParse(str, out x)) // Thanks Daniel :)
                 Console.WriteLine("Couldn't parse '" + str + "' to int");
-            System.Diagnostics.Debug.WriteLine("parse_int " + x.ToString());
             return x;
         }
 
@@ -40,9 +38,7 @@ namespace TowerDefence.PathEngine
         // E.g. "1, 5" -> Vector2(1, 5)
         public static Vector2 parse_Vector2(string line)
         {
-            System.Diagnostics.Debug.WriteLine("Got " + line);
             int[] ints = parse_ints(line);
-            System.Diagnostics.Debug.WriteLine("Parsed " + ints[0].ToString() + ", " + ints[1].ToString());
             return new Vector2(ints[0], ints[1]);
         }
     }

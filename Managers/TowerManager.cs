@@ -9,7 +9,11 @@ namespace TowerDefence.Managers
     internal class TowerManager
     {
         List<Tower> towerList;
-        bool IsPlacingTower = true;
+        bool isPlacingTower = true;
+        public bool IsPlacingTower
+        {
+            get { return isPlacingTower; }
+        }
         GameScene gameScene;
         public TowerManager(GameScene gameScene)
         {
@@ -30,7 +34,6 @@ namespace TowerDefence.Managers
                 towerList.Add(tower);
             }
         }
-
         public void Update(GameTime gameTime)
         {
             if(IsPlacingTower)
@@ -46,7 +49,6 @@ namespace TowerDefence.Managers
                 tower.Update(gameTime);
             }
         }
-
         public void Draw(SpriteBatch spriteBatch)
         {
             foreach (Tower tower in towerList)

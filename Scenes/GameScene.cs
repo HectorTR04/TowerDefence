@@ -11,19 +11,31 @@ namespace TowerDefence.Scenes
         TutorialManager tutorialManager;
         UIManager uiManager;
         TowerManager towerManager;
+        EnemyManager enemyManager;
         RenderTarget2D renderTarget;
         public GraphicsDevice graphicsDevice;
         Path path;
+        #region Border Rectangles
+        Rectangle northBorder = new Rectangle(0, 0, GlobalValues.ScreenWidth, GlobalValues.ScreenHeight / 4);
+        Rectangle southBorder = new Rectangle(0, GlobalValues.ScreenHeight - GlobalValues.ScreenHeight / 4, GlobalValues.ScreenWidth, GlobalValues.ScreenHeight / 4);
+        Rectangle eastBorder = new Rectangle(GlobalValues.ScreenWidth - GlobalValues.ScreenWidth / 4, 0, GlobalValues.ScreenWidth / 4, GlobalValues.ScreenHeight);
+        Rectangle westBorder = new Rectangle(0, 0, GlobalValues.ScreenWidth / 6, GlobalValues.ScreenHeight);
+        #endregion
         Rectangle[] borders;
+        Texture2D borderTexture;
         
         public GameScene(GraphicsDevice graphicsDevice)
         {
             path = new Path(graphicsDevice);
             this.graphicsDevice = graphicsDevice;
+            borderTexture = new Texture2D(graphicsDevice, 1, 1);
+            borderTexture.SetData(new[] { new Color(255, 0, 0, 50) });
+            borders = new Rectangle[] { northBorder, southBorder, eastBorder, westBorder };
             renderTarget = new RenderTarget2D(graphicsDevice, GlobalValues.ScreenWidth, GlobalValues.ScreenHeight);
             tutorialManager = new TutorialManager();
             uiManager = new UIManager();
             towerManager = new TowerManager(this);
+            enemyManager = new EnemyManager(graphicsDevice);
         }
         public override void Update(GameTime gameTime)
         {
@@ -35,6 +47,7 @@ namespace TowerDefence.Scenes
                 //}
                 uiManager.Update(gameTime);
                 towerManager.Update(gameTime);
+                enemyManager.Update(gameTime);
             }
             else
             {
@@ -52,6 +65,7 @@ namespace TowerDefence.Scenes
             //}
             uiManager.Draw(spriteBatch);
             spriteBatch.Draw(renderTarget, Vector2.Zero, Color.White);
+            enemyManager.Draw(spriteBatch);
             spriteBatch.End();
         }
         public void DrawRenderTargetLayer(SpriteBatch spriteBatch)
@@ -61,11 +75,19 @@ namespace TowerDefence.Scenes
             spriteBatch.Begin();
             towerManager.Draw(spriteBatch);
             path.Draw(spriteBatch);
+            //DrawBorders(spriteBatch);
             spriteBatch.End();
             graphicsDevice.SetRenderTarget(null);
         }
         public bool CanPlace(Tower tower)
         {
+            foreach(Rectangle border in borders)
+            {
+                if (tower.Hitbox.Intersects(border))
+                {
+                    return false;
+                }
+            }
             Color[] pixels = new Color[tower.Tex.Width * tower.Tex.Height];
             Color[] pixels2 = new Color[tower.Tex.Width * tower.Tex.Height];
             tower.Tex.GetData<Color>(pixels2);
@@ -76,6 +98,16 @@ namespace TowerDefence.Scenes
                     return false;
             }
             return true;
+        }
+        void DrawBorders(SpriteBatch spriteBatch)
+        {
+            if(towerManager.IsPlacingTower)
+            {
+                foreach(Rectangle border in borders)
+                {
+                    spriteBatch.Draw(borderTexture, border, Color.White);
+                }
+            }
         }
     }
 }
