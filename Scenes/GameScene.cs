@@ -33,8 +33,8 @@ namespace TowerDefence.Scenes
             borders = new Rectangle[] { northBorder, southBorder, eastBorder, westBorder };
             renderTarget = new RenderTarget2D(graphicsDevice, GlobalValues.ScreenWidth, GlobalValues.ScreenHeight);
             tutorialManager = new TutorialManager();
-            towerManager = new TowerManager(this);
             enemyManager = new EnemyManager(graphicsDevice);
+            towerManager = new TowerManager(this, enemyManager);
             uiManager = new UIManager(enemyManager, towerManager);
         }
         public override void Update(GameTime gameTime)

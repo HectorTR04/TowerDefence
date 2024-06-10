@@ -17,10 +17,12 @@ namespace TowerDefence.Managers
         public enum TowerType { Archer, Mage}
         public TowerType CurrentTowerSelected { get; set; }
         GameScene gameScene;
-        public TowerManager(GameScene gameScene)
+        EnemyManager enemyManager;
+        public TowerManager(GameScene gameScene, EnemyManager enemyManager)
         {
             this.gameScene = gameScene;
             towerList = new List<Tower>();
+            this.enemyManager = enemyManager;
         }
 
         void AddTower(Vector2 position)
@@ -59,7 +61,7 @@ namespace TowerDefence.Managers
             }
             foreach (Tower tower in towerList)
             {
-                tower.Update(gameTime);
+                tower.Update(gameTime, enemyManager.EnemiesInCurrentWave);
             }
         }
         public void Draw(SpriteBatch spriteBatch)

@@ -20,7 +20,7 @@ namespace TowerDefence.GameObjects
         GraphicsDevice graphicsDevice;
         protected int currentHealth;
         protected int maxHealth;
-        
+        public Vector2 Position { get; private set; }
 
         public Enemy(GraphicsDevice graphicsDevice)
         {
@@ -30,7 +30,6 @@ namespace TowerDefence.GameObjects
             cpath_moving = new CatmullRomPath(graphicsDevice, tension_carpath);
             cpath_moving.Clear();
             LoadPath.LoadPathFromFile(cpath_moving, "Path.txt");
-
             // DrawFillSetup must be called (once) for every path that uses DrawFill
             // Call again if curve is altered or if window is resized
             cpath_moving.DrawFillSetup(graphicsDevice, 15, 1, 256);
@@ -46,10 +45,9 @@ namespace TowerDefence.GameObjects
                 healthbar.X = hitbox.X - 10;
                 healthbar.Y = hitbox.Y - 20;
                 healthbar.Width = (currentHealth * ((float)currentHealth / maxHealth)) * 2;
+                Position = new Vector2(hitbox.X, hitbox.Y);
             }
             if (currentHealth == 0 || !InPathRange()) { IsAlive = false; }
-            
-
         }
         bool InPathRange()
         {
