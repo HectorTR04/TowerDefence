@@ -1,6 +1,7 @@
 ﻿
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SharpDX.Win32;
 using System.Collections.Generic;
 using TowerDefence.Base;
 
@@ -9,6 +10,7 @@ namespace TowerDefence.GameObjects
     internal abstract class Tower : GameObject
     {
         protected int price;
+        public int Price { get { return price; } }
         protected int damage;
         protected Vector2 position;
         protected float shotCoolDown;
@@ -32,6 +34,10 @@ namespace TowerDefence.GameObjects
                 Projectile projectile = projectiles[i];
                 projectile.Update(gameTime);
                 CollisionDetection(projectile, enemies);
+                if (!projectile.IsActive) 
+                { 
+                    projectiles.Remove(projectile);
+                }
             }
             if (currentCooldown <= 0)
             {
@@ -69,6 +75,10 @@ namespace TowerDefence.GameObjects
                 {
                     enemies[i].CurrentHealth -= damage;
                     projectiles.Remove(projectile);
+                    if(projectile is IceBall)
+                    {
+                        enemies[i].IsSlowed = true;
+                    }
                 }
             }
         }

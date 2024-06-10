@@ -24,8 +24,6 @@ namespace TowerDefence.Managers
         int shopButtonBuffer = 100;
         int moneyTextBuffer = 50;
         
-        
-
         public UIManager(EnemyManager enemyManager, TowerManager towerManager)
         {
             pauseMenu = new PauseMenu();

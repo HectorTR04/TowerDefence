@@ -1,9 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TowerDefence.Managers;
 
 namespace TowerDefence.GameObjects.Towers
@@ -13,8 +8,8 @@ namespace TowerDefence.GameObjects.Towers
         public ArcherTower()
         {
             tex = AssetManager.ArcherTower;
-            price = 200;
-            damage = 1;
+            price = 100;
+            damage = 2;
             shotCoolDown = 1000;
         }
         public override void FireProjectile(Vector2 targetPosition)

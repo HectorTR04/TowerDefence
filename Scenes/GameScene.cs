@@ -88,6 +88,9 @@ namespace TowerDefence.Scenes
                     return false;
                 }
             }
+
+            if(tower.Price > GameManager.Instance.PlayerMoney) { return false; }
+
             Color[] pixels = new Color[tower.Tex.Width * tower.Tex.Height];
             Color[] pixels2 = new Color[tower.Tex.Width * tower.Tex.Height];
             tower.Tex.GetData<Color>(pixels2);

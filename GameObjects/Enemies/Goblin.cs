@@ -15,7 +15,8 @@ namespace TowerDefence.GameObjects.Enemies
             tex = AssetManager.Goblin;
             maxHealth = 10;
             CurrentHealth = maxHealth;
-            curve_speed = 0.001f;
+            curve_speed = 0.05f;
+            KillReward = 25;
         }
     }
 }

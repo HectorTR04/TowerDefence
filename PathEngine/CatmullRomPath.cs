@@ -244,7 +244,7 @@ namespace TowerDefence.PathEngine
             return p0 * (0f - t + 4f * t * x - 3f * t * num) + p1 * (2f * (t - 3f) * x + 3f * (2f - t) * num) + p2 * (t + 2f * (3f - 2f * t) * x + 3f * (t - 2f) * num) + p3 * (-2f * t * x + 3f * t * num);
         }
 
-        public void DrawMovingObject(float curve_curpos, SpriteBatch _spriteBatch, Texture2D tex)
+        public void DrawMovingObject(float curve_curpos, SpriteBatch _spriteBatch, Texture2D tex, Color color)
         {
             Vector2 position = EvaluateAt(curve_curpos);
             float num = 0f;
@@ -252,7 +252,7 @@ namespace TowerDefence.PathEngine
             num = MathF.Atan2(vector.Y, vector.X);
             //num += MathHelper.ToRadians(90f);
             //_spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.LinearWrap, DepthStencilState.Default);
-            _spriteBatch.Draw(tex, position, null, Color.White, num, new Vector2(tex.Width / 2, tex.Height / 2), new Vector2(1.5f, 1.5f), SpriteEffects.None, 0f);
+            _spriteBatch.Draw(tex, position, null, color, num, new Vector2(tex.Width / 2, tex.Height / 2), new Vector2(1.5f, 1.5f), SpriteEffects.None, 0f);
             //_spriteBatch.End();
         }
     }

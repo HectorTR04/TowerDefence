@@ -21,17 +21,17 @@ namespace TowerDefence.GameObjects
         public int CurrentHealth {  get; set; }
         protected int maxHealth;
         public Vector2 Position { get; private set; }
+        public bool IsSlowed { get; set; } = false;
+        public int KillReward { get; protected set; }
 
         public Enemy(GraphicsDevice graphicsDevice)
         {
             this.graphicsDevice = graphicsDevice;
             healthbar = new RectangleF(hitbox.X, hitbox.Y, CurrentHealth, healthBarHeight);
-            float tension_carpath = 1f; // 0 = sharp turns, 0.5 = moderate turns, 1 = soft turns
+            float tension_carpath = 1f; 
             cpath_moving = new CatmullRomPath(graphicsDevice, tension_carpath);
             cpath_moving.Clear();
             LoadPath.LoadPathFromFile(cpath_moving, "Path.txt");
-            // DrawFillSetup must be called (once) for every path that uses DrawFill
-            // Call again if curve is altered or if window is resized
             cpath_moving.DrawFillSetup(graphicsDevice, 15, 1, 256);
         }
         public void Update(GameTime gameTime)
@@ -47,7 +47,8 @@ namespace TowerDefence.GameObjects
                 healthbar.Width = (CurrentHealth * ((float)CurrentHealth / maxHealth)) * 2;
                 Position = new Vector2(hitbox.X, hitbox.Y);
             }
-            if (CurrentHealth == 0 || !InPathRange()) { IsAlive = false; }
+            if(IsSlowed) { curve_speed = curve_speed * 0.5f; }
+            if (CurrentHealth <= 0 || !InPathRange()) { IsAlive = false; }
         }
         bool InPathRange()
         {
@@ -58,7 +59,14 @@ namespace TowerDefence.GameObjects
         {
             if (IsAlive && InPathRange())
             {
-                cpath_moving.DrawMovingObject(curve_curpos, spriteBatch, tex);
+                if(!IsSlowed)
+                {
+                    cpath_moving.DrawMovingObject(curve_curpos, spriteBatch, tex, Color.White);
+                }
+                else
+                {
+                    cpath_moving.DrawMovingObject(curve_curpos, spriteBatch, tex, Color.Blue);
+                }
                 DrawHealthBar(spriteBatch);
             }
         }

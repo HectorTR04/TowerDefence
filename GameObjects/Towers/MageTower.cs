@@ -10,7 +10,7 @@ namespace TowerDefence.GameObjects.Towers
             tex = AssetManager.MageTower;
             price = 200;
             damage = 5;
-            shotCoolDown = 3000;
+            shotCoolDown = 5000;
         }
         public override void FireProjectile(Vector2 targetPosition)
         {

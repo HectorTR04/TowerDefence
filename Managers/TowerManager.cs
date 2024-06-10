@@ -47,6 +47,7 @@ namespace TowerDefence.Managers
             if (tower != null && gameScene.CanPlace(tower)) 
             {
                 towerList.Add(tower);
+                GameManager.Instance.PlayerMoney -= tower.Price;
             }
             gameScene.DrawRenderTargetLayer(new SpriteBatch(gameScene.graphicsDevice));          
         }

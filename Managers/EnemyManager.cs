@@ -14,7 +14,7 @@ namespace TowerDefence.Managers
         GraphicsDevice graphicsDevice;
         int timeSinceLastSpawn = 0;
         int millisecondsBetweenCreation = 3000;
-        int enemiesToSpawn = 1;
+        int enemiesToSpawn = 10;
         int enemiesSpawned;
         
         public EnemyManager(GraphicsDevice graphicsDevice)
@@ -67,6 +67,7 @@ namespace TowerDefence.Managers
                 }
                 else
                 {
+                    GameManager.Instance.PlayerMoney += EnemiesInCurrentWave[i].KillReward;
                     EnemiesInCurrentWave.RemoveAt(i);
                 }
             }
