@@ -22,6 +22,7 @@
         public bool Exit { get; set; } = false;
         public int PlayerLives = 3;
         public int PlayerMoney = 1000;
+        public bool StartWave { get; set; } = false;
         
 
     }

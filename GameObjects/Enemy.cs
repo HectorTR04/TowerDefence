@@ -16,19 +16,18 @@ namespace TowerDefence.GameObjects
         public float Speed { get { return curve_speed; } }
         public bool IsAlive { get; private set; } = true;
         RectangleF healthbar;
-        float healthBarWidth = 30;
         float healthBarHeight = 7;
         GraphicsDevice graphicsDevice;
-        protected int health;
+        protected int currentHealth;
+        protected int maxHealth;
         
 
         public Enemy(GraphicsDevice graphicsDevice)
         {
             this.graphicsDevice = graphicsDevice;
-            healthbar = new RectangleF(hitbox.X, hitbox.Y, healthBarWidth, healthBarHeight);
+            healthbar = new RectangleF(hitbox.X, hitbox.Y, currentHealth, healthBarHeight);
             float tension_carpath = 1f; // 0 = sharp turns, 0.5 = moderate turns, 1 = soft turns
             cpath_moving = new CatmullRomPath(graphicsDevice, tension_carpath);
-
             cpath_moving.Clear();
             LoadPath.LoadPathFromFile(cpath_moving, "Path.txt");
 
@@ -39,21 +38,30 @@ namespace TowerDefence.GameObjects
         public void Update(GameTime gameTime)
         {
             curve_curpos += curve_speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if (curve_curpos < 1 & curve_curpos > 0)
+            if (InPathRange())
             {
                 Vector2 vec = cpath_moving.EvaluateAt(curve_curpos);
                 hitbox.X = (int)vec.X;
                 hitbox.Y = (int)vec.Y;
                 healthbar.X = hitbox.X - 10;
                 healthbar.Y = hitbox.Y - 20;
+                healthbar.Width = (currentHealth * ((float)currentHealth / maxHealth)) * 2;
             }
-            if (health == 0 && curve_curpos > 1) { IsAlive = false; }
+            if (currentHealth == 0 || !InPathRange()) { IsAlive = false; }
             
 
         }
+        bool InPathRange()
+        {
+            if(curve_curpos < 1 & curve_curpos > 0)
+            {
+                return true;
+            }
+            return false;
+        }
         public void Draw(SpriteBatch spriteBatch)
         {
-            if (curve_curpos < 1 & curve_curpos > 0)
+            if (IsAlive && InPathRange())
             {
                 cpath_moving.DrawMovingObject(curve_curpos, spriteBatch, tex);
                 DrawHealthBar(spriteBatch);
@@ -62,7 +70,21 @@ namespace TowerDefence.GameObjects
         }
         public void DrawHealthBar(SpriteBatch spriteBatch)
         {
-            spriteBatch.FillRectangle(healthbar, Color.Red, 0f);
+            float healthPercentage = (float)currentHealth / maxHealth;
+            Color healthBarColour;
+            if (healthPercentage > 0.5f)
+            {
+                healthBarColour = Color.Green;
+            }
+            else if (healthPercentage > 0.25f && healthPercentage < 0.5f)
+            {
+                healthBarColour = Color.Yellow;
+            }
+            else
+            {
+                healthBarColour = Color.Red;
+            }
+            spriteBatch.FillRectangle(healthbar, healthBarColour, 0f);
         }
     }
 }

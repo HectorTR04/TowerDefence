@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Extended.Timers;
 using System;
 using System.Collections.Generic;
 using TowerDefence.GameObjects;
@@ -9,24 +10,23 @@ namespace TowerDefence.Managers
     internal class EnemyManager
     {
         Random random;
-        List<Enemy> enemiesInCurrentWave;
+        public List<Enemy> EnemiesInCurrentWave { get; private set; }
         GraphicsDevice graphicsDevice;
         int timeSinceLastSpawn = 0;
-        int millisecondsBetweenCreation = 1000;
+        int millisecondsBetweenCreation = 500;
         int enemiesToSpawn = 7;
-        public bool WaveActive { get; private set; } = false;
+        int enemiesSpawned;
         
 
         public EnemyManager(GraphicsDevice graphicsDevice)
         {
             this.graphicsDevice = graphicsDevice;
             random = new Random();
-            enemiesInCurrentWave = new List<Enemy>();
+            EnemiesInCurrentWave = new List<Enemy>();
         }
-        void LoadWave(GameTime gameTime)
+        public void LoadWave(GameTime gameTime)
         {
             timeSinceLastSpawn += gameTime.ElapsedGameTime.Milliseconds;
-            WaveActive = true;
             for (int i = 0; i < enemiesToSpawn; i++)
             {
                 if (timeSinceLastSpawn > millisecondsBetweenCreation)
@@ -36,40 +36,48 @@ namespace TowerDefence.Managers
                     if(randomEnemyType == 0)
                     {
                         Enemy newEnemy = new Goblin(graphicsDevice);
-                        enemiesInCurrentWave.Add(newEnemy);
+                        EnemiesInCurrentWave.Add(newEnemy);
+                        enemiesSpawned++;
                     }
                     else
                     {
                         Enemy newEnemy = new Orc(graphicsDevice);
-                        enemiesInCurrentWave.Add(newEnemy);
+                        EnemiesInCurrentWave.Add(newEnemy);
+                        enemiesSpawned++;
                     }
                 }
+            }
+            if (GameManager.Instance.StartWave && enemiesSpawned == enemiesToSpawn)
+            {
+                GameManager.Instance.StartWave = false;
+                enemiesSpawned = 0;
             }
         }
         public void Update(GameTime gameTime)
         {
-            LoadWave(gameTime);
-            foreach(Enemy enemy in enemiesInCurrentWave)
+            if(GameManager.Instance.StartWave)
             {
-                if(WaveActive && enemy.IsAlive)
+                LoadWave(gameTime);
+            }
+            for (int i = EnemiesInCurrentWave.Count - 1; i >= 0; i--)
+            {
+                Enemy enemy = EnemiesInCurrentWave[i];
+                if (enemy.IsAlive)
                 {
                     enemy.Update(gameTime);
                 }
-                if(!enemy.IsAlive)
+                else
                 {
-                    enemiesInCurrentWave.Remove(enemy);
+                    EnemiesInCurrentWave.RemoveAt(i);
                 }
-            }
-            if(enemiesInCurrentWave.Count == 0)
-            {
-                WaveActive = false;
             }
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            foreach(Enemy enemy in enemiesInCurrentWave)
+            for (int i = EnemiesInCurrentWave.Count - 1; i >= 0; i--)
             {
-                if(WaveActive)
+                Enemy enemy = EnemiesInCurrentWave[i];
+                if (enemy.IsAlive)
                 {
                     enemy.Draw(spriteBatch);
                 }

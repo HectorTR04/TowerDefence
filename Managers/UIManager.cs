@@ -14,10 +14,12 @@ namespace TowerDefence.Managers
         const int firstButtonX = 32;
         const int firstButtonY = 48;
         PauseMenu pauseMenu;
+        EnemyManager enemyManager;
 
-        public UIManager()
+        public UIManager(EnemyManager enemyManager)
         {
             pauseMenu = new PauseMenu();
+            this.enemyManager = enemyManager;
             exitRect = new Rectangle(firstButtonX, firstButtonY, buttonWidth, buttonWidth);
             pauseRect = new Rectangle(firstButtonX + buttonWidth + buttonDistance, firstButtonY, buttonWidth, buttonWidth);
             shopRect = new Rectangle(firstButtonX + 2 * (buttonWidth + buttonDistance), firstButtonY, buttonWidth, buttonWidth);
@@ -46,7 +48,10 @@ namespace TowerDefence.Managers
         }
         void StartWave()
         {
-            Debug.WriteLine("startwave pressed");
+            if(enemyManager.EnemiesInCurrentWave.Count == 0)
+            {
+                GameManager.Instance.StartWave = true;
+            }
         }
         void OpenShop()
         {

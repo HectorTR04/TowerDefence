@@ -8,7 +8,8 @@ namespace TowerDefence.GameObjects
         public Orc(GraphicsDevice graphicsDevice) : base(graphicsDevice)
         {
             tex = AssetManager.Orc;
-            health = 20;
+            maxHealth = 20;
+            currentHealth = maxHealth;
             curve_speed = 0.05f;
         }
     }
