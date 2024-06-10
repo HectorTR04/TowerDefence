@@ -52,7 +52,8 @@ namespace TowerDefence.Scenes
             else
             {
                 return;
-            }          
+            }  
+            if(GameManager.Instance.PlayerHealth <= 0) { GameManager.Instance.Exit = true; }
         }
         public override void Draw(SpriteBatch spriteBatch)
         {

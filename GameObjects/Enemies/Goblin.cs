@@ -17,6 +17,7 @@ namespace TowerDefence.GameObjects.Enemies
             CurrentHealth = maxHealth;
             curve_speed = 0.05f;
             KillReward = 25;
+            castleDamage = 5;
         }
     }
 }

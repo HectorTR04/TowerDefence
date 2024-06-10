@@ -23,6 +23,7 @@ namespace TowerDefence.GameObjects
         public Vector2 Position { get; private set; }
         public bool IsSlowed { get; set; } = false;
         public int KillReward { get; protected set; }
+        protected int castleDamage;
 
         public Enemy(GraphicsDevice graphicsDevice)
         {
@@ -48,7 +49,15 @@ namespace TowerDefence.GameObjects
                 Position = new Vector2(hitbox.X, hitbox.Y);
             }
             if(IsSlowed) { curve_speed = curve_speed * 0.5f; }
-            if (CurrentHealth <= 0 || !InPathRange()) { IsAlive = false; }
+            if (CurrentHealth <= 0 || !InPathRange()) 
+            { 
+                IsAlive = false; 
+            }
+            if(CurrentHealth > 0 && !InPathRange())
+            {
+                GameManager.Instance.PlayerHealth -= castleDamage;
+            }
+            
         }
         bool InPathRange()
         {

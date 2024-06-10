@@ -20,7 +20,7 @@
         public enum RuntimeState { Playing, Paused }
         public RuntimeState CurrentRuntimeState { get; set; }
         public bool Exit { get; set; } = false;
-        public int PlayerLives = 3;
+        public int PlayerHealth = 100;
         public int PlayerMoney = 1000;
         public bool StartWave { get; set; } = false;
         
