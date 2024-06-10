@@ -58,10 +58,10 @@ namespace TowerDefence.GameObjects
             { 
                 IsAlive = false;
             }
-            else if(CurrentHealth <= 0 && InPathRange())
+            if(CurrentHealth <= 0 && InPathRange())
             {
-                IsAlive = false;
                 GameManager.Instance.PlayerMoney += KillReward;
+                IsAlive = false;
             }
             if (CurrentHealth > 0 && !InPathRange())
             {
