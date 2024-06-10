@@ -7,19 +7,19 @@ namespace TowerDefence.GameObjects
 {
     internal class Projectile : GameObject
     {
-        Vector2 position;
-        Vector2 startPosition;
+        protected Vector2 position;
         Vector2 targetPosition;
         protected float speed;
 
         public Projectile(Vector2 startPosition, Vector2 targetPosition)
         {         
-            this.startPosition = startPosition;
             this.targetPosition = targetPosition;
             position = startPosition;
         }
         public void Update(GameTime gameTime)
         {
+            hitbox.X = (int)position.X;
+            hitbox.Y = (int)position.Y;
             Vector2 direction = Vector2.Normalize(targetPosition - position);
             float distanceToMove = speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
             position += direction * distanceToMove;

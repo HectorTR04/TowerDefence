@@ -31,6 +31,7 @@ namespace TowerDefence.GameObjects
             {
                 Projectile projectile = projectiles[i];
                 projectile.Update(gameTime);
+                CollisionDetection(projectile, enemies);
             }
             if (currentCooldown <= 0)
             {
@@ -59,6 +60,17 @@ namespace TowerDefence.GameObjects
                 }
             }
             return closestEnemy;
+        }
+        void CollisionDetection(Projectile projectile, List<Enemy> enemies)
+        {
+            for (int i = 0;i < enemies.Count;i++)
+            {
+                if (projectile.Hitbox.Intersects(enemies[i].Hitbox))
+                {
+                    enemies[i].CurrentHealth -= damage;
+                    projectiles.Remove(projectile);
+                }
+            }
         }
         public void Draw(SpriteBatch spriteBatch)
         {

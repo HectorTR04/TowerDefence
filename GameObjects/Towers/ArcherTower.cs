@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TowerDefence.Managers;
 
-namespace TowerDefence.GameObjects
+namespace TowerDefence.GameObjects.Towers
 {
     internal class ArcherTower : Tower
     {

@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TowerDefence.Managers;
 
-namespace TowerDefence.GameObjects
+namespace TowerDefence.GameObjects.Enemies
 {
     internal class Goblin : Enemy
     {
@@ -14,8 +14,8 @@ namespace TowerDefence.GameObjects
         {
             tex = AssetManager.Goblin;
             maxHealth = 10;
-            currentHealth = maxHealth;
-            curve_speed = 0.1f;
+            CurrentHealth = maxHealth;
+            curve_speed = 0.001f;
         }
     }
 }

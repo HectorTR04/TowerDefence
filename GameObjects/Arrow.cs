@@ -8,7 +8,8 @@ namespace TowerDefence.GameObjects
         public Arrow(Vector2 startPosition, Vector2 targetPosition) : base(startPosition, targetPosition)
         {
             tex = AssetManager.Arrow;
-            speed = 10f;
+            speed = 100f;
+            hitbox = new Rectangle((int)position.X, (int)position.Y, AssetManager.Arrow.Width, AssetManager.Arrow.Height);
         }
 
     }

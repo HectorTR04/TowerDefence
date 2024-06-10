@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Diagnostics;
+using TowerDefence.Base;
 using TowerDefence.GameObjects.UI;
 
 namespace TowerDefence.Managers
@@ -20,7 +21,8 @@ namespace TowerDefence.Managers
         TowerManager towerManager;
         bool displayShop = false;
         Vector2 shopPosition = new Vector2(352, 0);
-        int shopButtonPadding = 100;
+        int shopButtonBuffer = 100;
+        int moneyTextBuffer = 50;
         
         
 
@@ -37,9 +39,9 @@ namespace TowerDefence.Managers
             shopButton = new Button(shopRect, OpenShop);
             startWaveButton = new Button(startWaveRect, StartWave);
             exitButton = new Button(exitRect, Exit);
-            archerBTNRect = new Rectangle((int)shopPosition.X + shopButtonPadding, (int)shopPosition.Y + shopButtonPadding, AssetManager.ArcherButton.Width, AssetManager.ArcherButton.Height);
+            archerBTNRect = new Rectangle((int)shopPosition.X + shopButtonBuffer, (int)shopPosition.Y + shopButtonBuffer, AssetManager.ArcherButton.Width, AssetManager.ArcherButton.Height);
             archerButton = new Button(archerBTNRect, ArcherSelected);
-            mageBTNRect = new Rectangle(archerBTNRect.X + shopButtonPadding, (int)shopPosition.Y + shopButtonPadding, AssetManager.MageButton.Width, AssetManager.MageButton.Height);
+            mageBTNRect = new Rectangle(archerBTNRect.X + shopButtonBuffer, (int)shopPosition.Y + shopButtonBuffer, AssetManager.MageButton.Width, AssetManager.MageButton.Height);
             archerButton = new Button(archerBTNRect, ArcherSelected);
             mageButton = new Button(mageBTNRect, MageSelected);
         }
@@ -62,8 +64,10 @@ namespace TowerDefence.Managers
                 spriteBatch.Draw(AssetManager.ShopMenu, shopPosition, Color.White);
                 spriteBatch.Draw(AssetManager.ArcherButton, new Vector2(archerBTNRect.X, archerBTNRect.Y), Color.White);
                 spriteBatch.Draw(AssetManager.MageButton, new Vector2(mageBTNRect.X, mageBTNRect.Y), Color.White);
+                spriteBatch.DrawString(AssetManager.defaultFont, $"{GameManager.Instance.PlayerMoney}", new Vector2(shopPosition.X + moneyTextBuffer, shopPosition.Y + (moneyTextBuffer)/2), GlobalValues.TextColour);
             }
             spriteBatch.Draw(AssetManager.UIBackground, Vector2.Zero, Color.White);
+            
         }
         void Pause()
         {

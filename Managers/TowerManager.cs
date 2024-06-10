@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using TowerDefence.GameObjects;
+using TowerDefence.GameObjects.Towers;
 using TowerDefence.Scenes;
 
 namespace TowerDefence.Managers

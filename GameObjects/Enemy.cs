@@ -18,14 +18,14 @@ namespace TowerDefence.GameObjects
         RectangleF healthbar;
         float healthBarHeight = 7;
         GraphicsDevice graphicsDevice;
-        protected int currentHealth;
+        public int CurrentHealth {  get; set; }
         protected int maxHealth;
         public Vector2 Position { get; private set; }
 
         public Enemy(GraphicsDevice graphicsDevice)
         {
             this.graphicsDevice = graphicsDevice;
-            healthbar = new RectangleF(hitbox.X, hitbox.Y, currentHealth, healthBarHeight);
+            healthbar = new RectangleF(hitbox.X, hitbox.Y, CurrentHealth, healthBarHeight);
             float tension_carpath = 1f; // 0 = sharp turns, 0.5 = moderate turns, 1 = soft turns
             cpath_moving = new CatmullRomPath(graphicsDevice, tension_carpath);
             cpath_moving.Clear();
@@ -44,10 +44,10 @@ namespace TowerDefence.GameObjects
                 hitbox.Y = (int)vec.Y;
                 healthbar.X = hitbox.X - 10;
                 healthbar.Y = hitbox.Y - 20;
-                healthbar.Width = (currentHealth * ((float)currentHealth / maxHealth)) * 2;
+                healthbar.Width = (CurrentHealth * ((float)CurrentHealth / maxHealth)) * 2;
                 Position = new Vector2(hitbox.X, hitbox.Y);
             }
-            if (currentHealth == 0 || !InPathRange()) { IsAlive = false; }
+            if (CurrentHealth == 0 || !InPathRange()) { IsAlive = false; }
         }
         bool InPathRange()
         {
@@ -64,7 +64,7 @@ namespace TowerDefence.GameObjects
         }
         public void DrawHealthBar(SpriteBatch spriteBatch)
         {
-            float healthPercentage = (float)currentHealth / maxHealth;
+            float healthPercentage = (float)CurrentHealth / maxHealth;
             Color healthBarColour;
             if (healthPercentage > 0.5f)
             {

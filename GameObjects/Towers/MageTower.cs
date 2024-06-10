@@ -1,8 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using System.Collections.Generic;
 using TowerDefence.Managers;
 
-namespace TowerDefence.GameObjects
+namespace TowerDefence.GameObjects.Towers
 {
     internal class MageTower : Tower
     {

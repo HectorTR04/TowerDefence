@@ -63,7 +63,7 @@ namespace TowerDefence.GameObjects.UI
             if (DisplayMessage)
             {
                 spriteBatch.Draw(tex, position, Color.White);
-                spriteBatch.DrawString(AssetManager.defaultFont, typedText, textPosition, Color.White);
+                spriteBatch.DrawString(AssetManager.defaultFont, typedText, textPosition, GlobalValues.TextColour);
             }
         }
 

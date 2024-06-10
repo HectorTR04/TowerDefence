@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MonoGame.Extended.Timers;
 using System;
 using System.Collections.Generic;
 using TowerDefence.GameObjects;
+using TowerDefence.GameObjects.Enemies;
 
 namespace TowerDefence.Managers
 {
@@ -13,8 +13,8 @@ namespace TowerDefence.Managers
         public List<Enemy> EnemiesInCurrentWave { get; private set; }
         GraphicsDevice graphicsDevice;
         int timeSinceLastSpawn = 0;
-        int millisecondsBetweenCreation = 500;
-        int enemiesToSpawn = 7;
+        int millisecondsBetweenCreation = 3000;
+        int enemiesToSpawn = 1;
         int enemiesSpawned;
         
         public EnemyManager(GraphicsDevice graphicsDevice)

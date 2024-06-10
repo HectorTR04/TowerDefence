@@ -35,6 +35,7 @@ namespace TowerDefence.Managers
             ArcherButton = content.Load<Texture2D>("UI\\archerbutton");
             MageButton = content.Load<Texture2D>("UI\\magebutton");
             Arrow = content.Load<Texture2D>("Game\\arrow");
+            IceBall = content.Load<Texture2D>("Game\\iceball");
         }
 
     }
