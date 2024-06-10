@@ -8,7 +8,6 @@ namespace TowerDefence.Managers
     {
         MenuScene mainMenu;
         GameScene gamePlay;
-
         public SceneManager(GraphicsDevice graphicsDevice)
         {
             mainMenu = new MenuScene();

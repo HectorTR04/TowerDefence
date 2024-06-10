@@ -53,10 +53,7 @@ namespace TowerDefence.GameObjects
         }
         bool InPathRange()
         {
-            if(curve_curpos < 1 & curve_curpos > 0)
-            {
-                return true;
-            }
+            if(curve_curpos < 1 & curve_curpos > 0) { return true; }
             return false;
         }
         public void Draw(SpriteBatch spriteBatch)
@@ -66,7 +63,6 @@ namespace TowerDefence.GameObjects
                 cpath_moving.DrawMovingObject(curve_curpos, spriteBatch, tex);
                 DrawHealthBar(spriteBatch);
             }
-
         }
         public void DrawHealthBar(SpriteBatch spriteBatch)
         {

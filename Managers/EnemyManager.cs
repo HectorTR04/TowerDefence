@@ -17,7 +17,6 @@ namespace TowerDefence.Managers
         int enemiesToSpawn = 7;
         int enemiesSpawned;
         
-
         public EnemyManager(GraphicsDevice graphicsDevice)
         {
             this.graphicsDevice = graphicsDevice;

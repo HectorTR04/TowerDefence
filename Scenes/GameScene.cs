@@ -35,7 +35,7 @@ namespace TowerDefence.Scenes
             tutorialManager = new TutorialManager();
             towerManager = new TowerManager(this);
             enemyManager = new EnemyManager(graphicsDevice);
-            uiManager = new UIManager(enemyManager);
+            uiManager = new UIManager(enemyManager, towerManager);
         }
         public override void Update(GameTime gameTime)
         {
@@ -45,7 +45,7 @@ namespace TowerDefence.Scenes
                 //{
                 //    tutorialManager.Update(gameTime);
                 //}
-                uiManager.Update(gameTime);
+                uiManager.Update();
                 towerManager.Update(gameTime);
                 enemyManager.Update(gameTime);
             }

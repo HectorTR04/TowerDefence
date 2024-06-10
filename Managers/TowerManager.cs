@@ -14,6 +14,8 @@ namespace TowerDefence.Managers
         {
             get { return isPlacingTower; }
         }
+        public enum TowerType { Archer, Mage}
+        public TowerType CurrentTowerSelected { get; set; }
         GameScene gameScene;
         public TowerManager(GameScene gameScene)
         {
@@ -23,16 +25,27 @@ namespace TowerDefence.Managers
 
         void AddTower(Vector2 position)
         {
-            ArcherTower tower = new ArcherTower();
-            Rectangle towerRect = new Rectangle((int)position.X, (int)position.Y, tower.Tex.Width, tower.Tex.Height);
-            tower.SetRectangle(towerRect);
-
-            gameScene.DrawRenderTargetLayer(new SpriteBatch(gameScene.graphicsDevice));
-
-            if (gameScene.CanPlace(tower))
+            Tower tower = null;
+            switch (CurrentTowerSelected)
+            {
+                case TowerType.Mage:
+                    MageTower mageTower = new MageTower();
+                    Rectangle mageTowerRect = new Rectangle((int)position.X, (int)position.Y, mageTower.Tex.Width, mageTower.Tex.Height);
+                    mageTower.SetRectangle(mageTowerRect);
+                    tower = mageTower;
+                    break;
+                case TowerType.Archer:
+                    ArcherTower archerTower = new ArcherTower();
+                    Rectangle archerTowerRect = new Rectangle((int)position.X, (int)position.Y, archerTower.Tex.Width, archerTower.Tex.Height);
+                    archerTower.SetRectangle(archerTowerRect);
+                    tower = archerTower; 
+                    break;
+            }
+            if (tower != null && gameScene.CanPlace(tower)) 
             {
                 towerList.Add(tower);
             }
+            gameScene.DrawRenderTargetLayer(new SpriteBatch(gameScene.graphicsDevice));          
         }
         public void Update(GameTime gameTime)
         {

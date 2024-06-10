@@ -10,7 +10,6 @@ namespace TowerDefence.Base
         {
             get { return hitbox; }
         }
-
         public UIObject(Rectangle hitbox)
         {
             this.hitbox = hitbox;
