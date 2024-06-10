@@ -13,6 +13,8 @@ namespace TowerDefence.GameObjects
         public Goblin(GraphicsDevice graphicsDevice) : base(graphicsDevice)
         {
             tex = AssetManager.Goblin;
+            health = 10;
+            curve_speed = 0.1f;
         }
     }
 }

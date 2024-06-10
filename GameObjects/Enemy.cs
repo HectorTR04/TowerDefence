@@ -12,12 +12,14 @@ namespace TowerDefence.GameObjects
     {
         CatmullRomPath cpath_moving;
         float curve_curpos = 0;
-        float curve_speed = 0.1f;
+        protected float curve_speed;
         public float Speed { get { return curve_speed; } }
+        public bool IsAlive { get; private set; } = true;
         RectangleF healthbar;
-        float healthBarWidth = 10;
-        float healthBarHeight = 5;
+        float healthBarWidth = 30;
+        float healthBarHeight = 7;
         GraphicsDevice graphicsDevice;
+        protected int health;
         
 
         public Enemy(GraphicsDevice graphicsDevice)
@@ -42,9 +44,12 @@ namespace TowerDefence.GameObjects
                 Vector2 vec = cpath_moving.EvaluateAt(curve_curpos);
                 hitbox.X = (int)vec.X;
                 hitbox.Y = (int)vec.Y;
-                healthbar.X = hitbox.X;
+                healthbar.X = hitbox.X - 10;
                 healthbar.Y = hitbox.Y - 20;
             }
+            if (health == 0 && curve_curpos > 1) { IsAlive = false; }
+            
+
         }
         public void Draw(SpriteBatch spriteBatch)
         {

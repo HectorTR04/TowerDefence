@@ -1,9 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using TowerDefence.Managers;
 
 namespace TowerDefence.GameObjects
 {
@@ -11,6 +7,9 @@ namespace TowerDefence.GameObjects
     {
         public Orc(GraphicsDevice graphicsDevice) : base(graphicsDevice)
         {
+            tex = AssetManager.Orc;
+            health = 20;
+            curve_speed = 0.05f;
         }
     }
 }

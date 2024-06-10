@@ -10,7 +10,7 @@ namespace TowerDefence.Managers
         public static Texture2D MenuBackground;
         public static Texture2D StartButton, QuitButton, ConfirmButton;
 
-        public static Texture2D GameMap, Path, ArcherTower, MageTower, Goblin;
+        public static Texture2D GameMap, Path, ArcherTower, MageTower, Goblin, Orc;
         public static Texture2D TutorialMessage, UIBackground;
 
         public static void LoadSprites(ContentManager content)
@@ -29,6 +29,7 @@ namespace TowerDefence.Managers
             ArcherTower = content.Load<Texture2D>("Game\\bowtower");
             MageTower = content.Load<Texture2D>("Game\\magetower");
             Goblin = content.Load<Texture2D>("Game\\goblin");
+            Orc = content.Load<Texture2D>("Game\\orc");
         }
 
     }
