@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
 using TowerDefence.Base;
 using TowerDefence.Managers;
+using TowerDefence.ParticleEngine;
 using TowerDefence.PathEngine;
 
 
@@ -10,21 +11,21 @@ namespace TowerDefence.GameObjects
 {
     internal class Enemy : GameObject
     {
-        CatmullRomPath cpath_moving;
-        float curve_curpos = 0;
         protected float curve_speed;
         public float Speed { get { return curve_speed; } }
         public bool IsAlive { get; private set; } = true;
-        RectangleF healthbar;
-        float healthBarHeight = 7;
-        GraphicsDevice graphicsDevice;
         public int CurrentHealth {  get; set; }
-        protected int maxHealth;
         public Vector2 Position { get; private set; }
         public bool IsSlowed { get; set; } = false;
         public int KillReward { get; protected set; }
+        CatmullRomPath cpath_moving;
+        float curve_curpos = 0;
+        RectangleF healthbar;
+        float healthBarHeight = 7;
+        GraphicsDevice graphicsDevice;
+        bool slowApplied = false;
+        protected int maxHealth;
         protected int castleDamage;
-
         public Enemy(GraphicsDevice graphicsDevice)
         {
             this.graphicsDevice = graphicsDevice;
@@ -45,19 +46,27 @@ namespace TowerDefence.GameObjects
                 hitbox.Y = (int)vec.Y;
                 healthbar.X = hitbox.X - 10;
                 healthbar.Y = hitbox.Y - 20;
-                healthbar.Width = (CurrentHealth * ((float)CurrentHealth / maxHealth)) * 2;
+                healthbar.Width = (CurrentHealth * ((float)CurrentHealth / maxHealth));
                 Position = new Vector2(hitbox.X, hitbox.Y);
             }
-            if(IsSlowed) { curve_speed = curve_speed * 0.5f; }
+            if(IsSlowed && !slowApplied) 
+            { 
+                curve_speed = curve_speed * 0.5f; 
+                slowApplied = true; 
+            }
             if (CurrentHealth <= 0 || !InPathRange()) 
             { 
-                IsAlive = false; 
+                IsAlive = false;
             }
-            if(CurrentHealth > 0 && !InPathRange())
+            else if(CurrentHealth <= 0 && InPathRange())
+            {
+                IsAlive = false;
+                GameManager.Instance.PlayerMoney += KillReward;
+            }
+            if (CurrentHealth > 0 && !InPathRange())
             {
                 GameManager.Instance.PlayerHealth -= castleDamage;
-            }
-            
+            }           
         }
         bool InPathRange()
         {

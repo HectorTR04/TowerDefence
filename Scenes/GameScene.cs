@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using TowerDefence.Base;
 using TowerDefence.GameObjects;
 using TowerDefence.Managers;
+using TowerDefence.ParticleEngine;
 
 namespace TowerDefence.Scenes
 {
@@ -23,6 +24,9 @@ namespace TowerDefence.Scenes
         #endregion
         Rectangle[] borders;
         Texture2D borderTexture;
+        ParticleSystem particleSystem;
+        Vector2 enemySpawner = new Vector2(64,360);
+        Point particleDirection = new Point(0,(int)-1.5);
         
         public GameScene(GraphicsDevice graphicsDevice)
         {
@@ -36,6 +40,7 @@ namespace TowerDefence.Scenes
             enemyManager = new EnemyManager(graphicsDevice);
             towerManager = new TowerManager(this, enemyManager);
             uiManager = new UIManager(enemyManager, towerManager);
+            particleSystem = new ParticleSystem(AssetManager.Particle, enemySpawner, GlobalValues.ParticleColours, particleDirection);
         }
         public override void Update(GameTime gameTime)
         {
@@ -48,6 +53,10 @@ namespace TowerDefence.Scenes
                 uiManager.Update();
                 towerManager.Update(gameTime);
                 enemyManager.Update(gameTime);
+                if(GameManager.Instance.StartWave)
+                {
+                    particleSystem.Update();
+                }
             }
             else
             {
@@ -67,6 +76,10 @@ namespace TowerDefence.Scenes
             uiManager.Draw(spriteBatch);
             spriteBatch.Draw(renderTarget, Vector2.Zero, Color.White);
             enemyManager.Draw(spriteBatch);
+            if(GameManager.Instance.StartWave)
+            {
+                particleSystem.Draw(spriteBatch);
+            }
             spriteBatch.End();
         }
         public void DrawRenderTargetLayer(SpriteBatch spriteBatch)

@@ -67,7 +67,6 @@ namespace TowerDefence.Managers
                 }
                 else
                 {
-                    GameManager.Instance.PlayerMoney += EnemiesInCurrentWave[i].KillReward;
                     EnemiesInCurrentWave.RemoveAt(i);
                 }
             }

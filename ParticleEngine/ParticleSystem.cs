@@ -32,15 +32,20 @@ namespace TowerDefence.ParticleEngine
             int randomIndex = random.Next(0, colors.Length);
             color = colors[randomIndex];
 
-            Vector2 velocity = new Vector2(
-                  1f * (float)(random.NextDouble() * direction.X),
-                  (float)(random.Next(1, 2) * direction.Y));
+           Vector2 originalVelocity = new Vector2(
+           5f * (float)(random.NextDouble() * direction.X),
+           (random.Next(2, 5) * direction.Y));
 
-            float size = (float)random.NextDouble();
+            float variationAmount = 1.5f; 
+            Vector2 velocity = new Vector2(
+                originalVelocity.X + (float)(random.NextDouble() * 2 - 1) * variationAmount,
+                originalVelocity.Y + (float)(random.NextDouble() * 2 - 1) * variationAmount
+            );
+
+            float size = random.Next(2, 3);
 
             return new Particle(texture, position, velocity, angle, angularVelocity, color, size, ttl);
         }
-
         public void Update()
         {
             int total = 1;
@@ -62,12 +67,10 @@ namespace TowerDefence.ParticleEngine
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            //spriteBatch.Begin();
             for (int index = 0; index < particles.Count; index++)
             {
                 particles[index].Draw(spriteBatch);
             }
-            //spriteBatch.End();
         }
     }
 }
