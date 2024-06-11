@@ -164,6 +164,13 @@
 /processorParam:TextureFormat=Color
 /build:MainMenu/TDbackground.png
 
+#begin scoreboard.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:scoreboard.spritefont
+
 #begin UI/archerbutton.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -199,6 +206,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:UI/magebutton.png
+
+#begin UI/scoreboard.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:UI/scoreboard.png
 
 #begin UI/shopmenu.png
 /importer:TextureImporter

@@ -22,6 +22,7 @@
         public bool Exit { get; set; } = false;
         public int PlayerHealth = 100;
         public int PlayerMoney = 1000;
+        public int PlayerScore = 0;
         public bool StartWave { get; set; } = false;
         
 

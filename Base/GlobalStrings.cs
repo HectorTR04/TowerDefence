@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using TowerDefence.Managers;
 
 namespace TowerDefence.Base
 {
     internal class GlobalStrings
     {
-        public const string TUTORIALMSG1 = "Welcome potential defender! Your goal is to protect the keep from waves of orc attackers.";
-        public const string TUTORIALMSG2 = "There is so much cool text right here for real";
-        public const string TUTORIALMSG3 = "His palms are sweaty knees weaks arms are heavy there is vomit on his sweater already mom spaghetti";
+        public const string TUTORIALMSG1 = "Welcome potential defender! Your goal is to protect the keep from waves of attackers using our graciously provided towers.";
+        public const string TUTORIALMSG2 = "To buy towers from our wonderful shop press the green +, \n and to ready for a wave of enemies press the yellow exclamation.";
+        public const string TUTORIALMSG3 = "When you defeat enemies you will get money with which to buy towers, but if enemies reach the keep you will lose health. \n Good luck";
     }
 }

@@ -5,19 +5,20 @@ namespace TowerDefence.Managers
 {
     static class AssetManager
     {
-        public static SpriteFont defaultFont;
+        public static SpriteFont DefaultFont, ScoreBoardFont;
 
         public static Texture2D MenuBackground;
         public static Texture2D StartButton, QuitButton, ConfirmButton, ArcherButton, MageButton;
 
         public static Texture2D GameMap, Path, ArcherTower, MageTower, Goblin, Orc;
-        public static Texture2D TutorialMessage, UIBackground, ShopMenu;
+        public static Texture2D TutorialMessage, UIBackground, ShopMenu, Scoreboard;
         public static Texture2D Arrow, IceBall;
         public static Texture2D Particle;
 
         public static void LoadSprites(ContentManager content)
         {
-            defaultFont = content.Load<SpriteFont>("default");
+            DefaultFont = content.Load<SpriteFont>("default");
+            ScoreBoardFont = content.Load<SpriteFont>("scoreboard");
 
             MenuBackground = content.Load<Texture2D>("MainMenu\\TDbackground");
             StartButton = content.Load<Texture2D>("MainMenu\\startbutton");
@@ -38,6 +39,7 @@ namespace TowerDefence.Managers
             Arrow = content.Load<Texture2D>("Game\\arrow");
             IceBall = content.Load<Texture2D>("Game\\iceball");
             Particle = content.Load<Texture2D>("Game\\particle");
+            Scoreboard = content.Load<Texture2D>("UI\\scoreboard");
         }
     }
 }

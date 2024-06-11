@@ -55,7 +55,7 @@ namespace TowerDefence.GameObjects.UI
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            Vector2 textSize = AssetManager.defaultFont.MeasureString(text);
+            Vector2 textSize = AssetManager.DefaultFont.MeasureString(text);
             Vector2 textPosition = new Vector2(
                 position.X + borderPadding,
                 position.Y + borderPadding
@@ -63,7 +63,7 @@ namespace TowerDefence.GameObjects.UI
             if (DisplayMessage)
             {
                 spriteBatch.Draw(tex, position, Color.White);
-                spriteBatch.DrawString(AssetManager.defaultFont, typedText, textPosition, GlobalValues.TextColour);
+                spriteBatch.DrawString(AssetManager.DefaultFont, typedText, textPosition, GlobalValues.TextColour);
             }
         }
 
@@ -75,7 +75,7 @@ namespace TowerDefence.GameObjects.UI
 
             foreach (string word in wordArray)
             {
-                if (AssetManager.defaultFont.MeasureString(line + word).Length() > tex.Width)
+                if (AssetManager.DefaultFont.MeasureString(line + word).Length() > tex.Width)
                 {
                     returnString = returnString + line + '\n';
                     line = string.Empty;

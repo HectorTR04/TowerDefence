@@ -46,10 +46,10 @@ namespace TowerDefence.Scenes
         {
             if (GameManager.Instance.CurrentRuntimeState == GameManager.RuntimeState.Playing)
             {
-                //if (!tutorialManager.TutorialDone)
-                //{
-                //    tutorialManager.Update(gameTime);
-                //}
+                if (!tutorialManager.TutorialDone)
+                {
+                    tutorialManager.Update(gameTime);
+                }
                 uiManager.Update();
                 towerManager.Update(gameTime);
                 enemyManager.Update(gameTime);
@@ -69,16 +69,16 @@ namespace TowerDefence.Scenes
             DrawRenderTargetLayer(spriteBatch);
             spriteBatch.Begin();
             spriteBatch.Draw(AssetManager.GameMap, Vector2.Zero, Color.White);
-            //if (!tutorialManager.TutorialDone)
-            //{
-            //    tutorialManager.Draw(spriteBatch);
-            //}
             uiManager.Draw(spriteBatch);
             spriteBatch.Draw(renderTarget, Vector2.Zero, Color.White);
             enemyManager.Draw(spriteBatch);
             if(GameManager.Instance.StartWave)
             {
                 particleSystem.Draw(spriteBatch);
+            }
+            if (!tutorialManager.TutorialDone)
+            {
+                tutorialManager.Draw(spriteBatch);
             }
             spriteBatch.End();
         }

@@ -21,8 +21,10 @@ namespace TowerDefence.Managers
         TowerManager towerManager;
         bool displayShop = false;
         Vector2 shopPosition = new Vector2(352, 0);
-        int shopButtonBuffer = 100;
-        int moneyTextBuffer = 50;
+        const int shopButtonBuffer = 100;
+        const int moneyTextBuffer = 50;
+        Vector2 scoreBoardPos = new Vector2((GlobalValues.ScreenWidth - AssetManager.Scoreboard.Width), 0);
+        Vector2 scoreBoardTextPos = new Vector2((GlobalValues.ScreenWidth - AssetManager.Scoreboard.Width + AssetManager.Scoreboard.Width / 8), AssetManager.Scoreboard.Height/2);
         
         public UIManager(EnemyManager enemyManager, TowerManager towerManager)
         {
@@ -62,10 +64,11 @@ namespace TowerDefence.Managers
                 spriteBatch.Draw(AssetManager.ShopMenu, shopPosition, Color.White);
                 spriteBatch.Draw(AssetManager.ArcherButton, new Vector2(archerBTNRect.X, archerBTNRect.Y), Color.White);
                 spriteBatch.Draw(AssetManager.MageButton, new Vector2(mageBTNRect.X, mageBTNRect.Y), Color.White);
-                spriteBatch.DrawString(AssetManager.defaultFont, $"{GameManager.Instance.PlayerMoney}", new Vector2(shopPosition.X + moneyTextBuffer, shopPosition.Y + (moneyTextBuffer)/2), GlobalValues.TextColour);
+                spriteBatch.DrawString(AssetManager.DefaultFont, $"{GameManager.Instance.PlayerMoney}", new Vector2(shopPosition.X + moneyTextBuffer, shopPosition.Y + (moneyTextBuffer)/2), GlobalValues.TextColour);
             }
             spriteBatch.Draw(AssetManager.UIBackground, Vector2.Zero, Color.White);
-            
+            spriteBatch.Draw(AssetManager.Scoreboard, scoreBoardPos, Color.White);
+            spriteBatch.DrawString(AssetManager.ScoreBoardFont, $"{GameManager.Instance.PlayerHealth}/100  {GameManager.Instance.PlayerMoney}         {GameManager.Instance.PlayerScore}", scoreBoardTextPos, GlobalValues.TextColour);
         }
         void Pause()
         {
